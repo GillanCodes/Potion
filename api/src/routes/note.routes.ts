@@ -1,7 +1,8 @@
 import {Router} from 'express';
-import { createNote } from '../controllers/note.controller';
+import { createNote, getNotes } from '../controllers/note.controller';
 let router: Router = Router();
 
+router.get('/', getNotes)
 
 router.post('/new', createNote)
 
