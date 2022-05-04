@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "outDir": "./build",
+        "rootDir": "./",
+        "module": "commonjs",
+        "strict": true,
+        "noEmitOnError": true,
+        "typeRoots": ["./node_modules/@types"],
+    },
+    "files": [
+        "api_main.ts"
+    ],
+    "include": [
+        "config/**/*",
+        "middlewares/**/*",
+        "models/**/*",
+        "src/**/*",
+        "utils/**/*"
+    ]
+    
+}
