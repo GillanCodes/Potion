@@ -1,3 +1,28 @@
 api/node_modules
 api/config/.env
 api/build
+
+others/quilljs
+
+
+# dependencies
+potion-client//node_modules
+potion-client//.pnp
+potion-client/.pnp.js
+
+# testing
+potion-client//coverage
+
+# production
+potion-client//build
+
+# misc
+potion-client/.DS_Store
+potion-client/.env.local
+potion-client/.env.development.local
+potion-client/.env.test.local
+potion-client/.env.production.local
+
+potion-client/npm-debug.log*
+potion-client/yarn-debug.log*
+potion-client/yarn-error.log*
