@@ -6,7 +6,13 @@ export interface INote {
     icon: string,
     title: string,
     banner: string,
-    content: string[],
+    content: {
+        type: {
+            html : string, 
+            tag: string,
+            id: string
+        }
+    },
 }
 
 const noteSchema = new Schema<INote>({
@@ -28,11 +34,14 @@ const noteSchema = new Schema<INote>({
         type: String
     },
     content: {
-        type: [String]
+        type: [{
+            id: String, 
+            html: String,
+            tag: String
+        }]
     }
 
 });
-
 
 let noteModel = model<INote>('note', noteSchema);
 export default noteModel;
