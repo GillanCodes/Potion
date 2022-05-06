@@ -2,7 +2,6 @@ import bodyParser = require('body-parser');
 import cookieParser = require('cookie-parser');
 import * as express from 'express';
 import config from "./config/config";
-import * as cors from 'cors';
 
 let app: express.Application = express();
 
@@ -16,7 +15,18 @@ import authRoutes from './src/routes/auth.routes';
 import userRoutes from './src/routes/user.routes';
 import noteRoutes from './src/routes/note.routes';
 
-app.use(cors());
+let cors = require('cors');
+const corsOptions = {
+    origin: "http://localhost:3000",
+    'credentials': true,
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false,
+    optionsSuccessStatus: 200,
+  }
+app.use(cors(corsOptions));
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
