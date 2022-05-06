@@ -1,7 +1,7 @@
 import React from 'react';
-import uid from '../utils/Uid';
+import uid from '../../utils/Uid';
 import EditableBlock from './EditableBlock';
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 const initialBlock = { id: uid(), html: "", tag: "p" };
 
@@ -12,7 +12,7 @@ export default class EditablePage extends React.Component {
     this.updatePageHandler = this.updatePageHandler.bind(this);
     this.addBlockHandler = this.addBlockHandler.bind(this);
     this.deleteBlockHandler = this.deleteBlockHandler.bind(this);
-    this.state = { blocks: [initialBlock] };
+    this.state = { blocks: this.props.content };
   }
 
   updatePageHandler(updatedBlock) {
@@ -69,10 +69,11 @@ export default class EditablePage extends React.Component {
   saveHandler() {
     axios({
       method: 'PATCH',
-      url : "http://localhost:5000/api/note/6274f22a82f5dd4cc3d1df72",
+      url : `http://localhost:5000/api/note/${this.props.id}`,
       data: {
         blocks: this.getState().blocks
-      }
+      },
+      withCredentials: true
     })
   }
 

@@ -17,7 +17,14 @@ export const getNotes: RequestHandler = async (req, res) => {
 export const createNote: RequestHandler  = async (req, res) => {
     if (res.locals.user) {
         var newNote = await noteModel.create({
-            author: res.locals.user.id
+            author: res.locals.user.id,
+            content: [
+                {
+                    id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+                    tag: "p",
+                    html: ""
+                }
+            ]
         });
         return res.status(201).json(newNote);
     } else {
@@ -30,10 +37,10 @@ export const insertContent: RequestHandler = (req, res) => {
         const { blocks } = req.body;
         const { id: noteId } = req.params
 
-        console.log(req.params)
+        console.log(res.locals.user)
 
         if (!isValidObjectId(noteId))  
-            return res.status(200).send("Can find note " + noteId);
+            return res.status(200).send("Cant find note " + noteId);
 
         if (res.locals.user){
             try {
@@ -53,7 +60,7 @@ export const insertContent: RequestHandler = (req, res) => {
 
 export const bannerEdit: RequestHandler = (req, res) => {
 
-    if (!res.locals.user) {
+    if (res.locals.user) {
         
         if (req.file) {
             const fileName: string = req.params.id + '-' + Date.now() + "." + req.file.originalname.split('.')[1];
