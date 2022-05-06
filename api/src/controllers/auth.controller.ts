@@ -17,7 +17,7 @@ export const signup: RequestHandler = async (req, res) => {
         const user = await userModel.create({username, email, password});
         return res.status(201).json({user:user._id});
     } catch (error) {
-        //TODO
+        console.log(error)
     }
 }
 
