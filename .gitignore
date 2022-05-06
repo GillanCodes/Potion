@@ -1,6 +1,7 @@
 api/node_modules
 api/config/.env
 api/build
+api/cdn/notes
 
 others/quilljs
 

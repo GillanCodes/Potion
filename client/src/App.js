@@ -1,10 +1,20 @@
-import EditablePage from "./components/EditablePage";
+import Routes from "./components/Routes";
+import './styles/index.scss';
+
+import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware } from "redux";
+import rootReducers from "./reducers";
+
+import { Provider, thunk } from "react-redux";
+
+const store = configureStore({reducer: rootReducers})
 
 function App() {
   return (
     <div className="App">
-      <h1>Title</h1>
-      <EditablePage />
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     </div>
   );
 }
