@@ -1,4 +1,5 @@
 import React from 'react';
+import uid from '../utils/Uid';
 import EditableBlock from './EditableBlock';
 
 const initialBlock = { id: uid(), html: "", tag: "p" };
@@ -37,6 +38,15 @@ export default class EditablePage extends React.Component {
   }
 
   deleteBlockHandler(currentBlock) {
+    const setCaretToEnd = (element) => {
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(element);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      element.focus();
+    };
     const previousBlock = currentBlock.ref.previousElementSibling;
     if (previousBlock) {
       const blocks = this.state.blocks;
@@ -49,6 +59,7 @@ export default class EditablePage extends React.Component {
       });
     }
   }
+  
 
   render() {
     return (
