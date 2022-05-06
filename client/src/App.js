@@ -6,8 +6,11 @@ import { applyMiddleware } from "redux";
 import rootReducers from "./reducers";
 
 import { Provider, thunk } from "react-redux";
+import { getNotes } from "./actions/note.action";
 
 const store = configureStore({reducer: rootReducers})
+
+store.dispatch(getNotes());
 
 function App() {
   return (

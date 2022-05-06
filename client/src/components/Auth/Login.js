@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import axios from 'axios';
 import React, { useState } from 'react'
 
 export default function Login() {
@@ -12,7 +12,7 @@ export default function Login() {
     const login = (e) => {
         e.preventDefault();
         if (state.log !== null && state.password !== null) {
-            Axios({
+            axios({
                 method: 'post',
                 url: `${process.env.REACT_APP_API_URL}/api/auth/signin`,
                 data: {
@@ -42,11 +42,11 @@ export default function Login() {
             <form> 
                 <div className="field">
                     <span>Username or Email</span>
-                    <input type="text" required name="log" id="log" onChange={(e) => setState({log: e.target.value})} />
+                    <input type="text" required name="log" id="log" onChange={(e) => setState({...state, log: e.target.value})} />
                 </div>
                 <div className="field">
                     <span>Password</span>
-                    <input type="password" name="password" id="password" required onChange={(e) => setState({password: e.target.password})} />
+                    <input type="password" name="password" id="password" required onChange={(e) => setState({...state, password: e.target.value})} />
                 </div>
                 <input type="submit" value="Login !" onClick={login} />
             </form>
