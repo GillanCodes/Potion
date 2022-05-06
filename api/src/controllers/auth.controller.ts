@@ -24,12 +24,15 @@ export const signup: RequestHandler = async (req, res) => {
 export const signin: RequestHandler = async (req, res) => {
 
     const {log, password}: {log: string, password: string} = req.body;
+    console.log(req.body)
     try {
         var user = await userModel.login(log, password);
         const token: string = createToken(user._id);
         res.cookie('auth', token, {httpOnly: true, maxAge});
         return res.status(200).json({user})
     } catch (error) {
+        console.log(error);
+        return 
         //TODO
     }
 

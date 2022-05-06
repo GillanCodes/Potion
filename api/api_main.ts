@@ -27,6 +27,9 @@ const corsOptions = {
   }
 app.use(cors(corsOptions));
 
+let { checkUser } = require('./middlewares/auth.middleware');
+app.use(checkUser)
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);

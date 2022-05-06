@@ -6,7 +6,7 @@ import * as fs from "fs";
 export const getNotes: RequestHandler = async (req, res) => {
     
     if (res.locals.user) {
-        var notes = await noteModel.find({author: res.locals.user});
+        var notes = await noteModel.find({author: res.locals.user.id});
         return res.status(201).json(notes)
     } else {
         return res.status(401).send('Need Auth');
@@ -15,9 +15,9 @@ export const getNotes: RequestHandler = async (req, res) => {
 }
 
 export const createNote: RequestHandler  = async (req, res) => {
-    if (!res.locals.user) {
+    if (res.locals.user) {
         var newNote = await noteModel.create({
-            author: "res.locals.user"
+            author: res.locals.user.id
         });
         return res.status(201).json(newNote);
     } else {
@@ -35,19 +35,19 @@ export const insertContent: RequestHandler = (req, res) => {
         if (!isValidObjectId(noteId))  
             return res.status(200).send("Can find note " + noteId);
 
-        console.log(blocks)
-
-        try {
-            noteModel.findByIdAndUpdate(noteId, {
-                $set: {
-                    content: blocks
-                }
-            }, {new: true}, (err, data) => {
-                if (err) throw Error(err.toString());
-                else res.status(201).send(data);
-            });
-        } catch (error) {
-            console.log('err');
+        if (res.locals.user){
+            try {
+                noteModel.findByIdAndUpdate(noteId, {
+                    $set: {
+                        content: blocks
+                    }
+                }, {new: true}, (err, data) => {
+                    if (err) throw Error(err.toString());
+                    else res.status(201).send(data);
+                });
+            } catch (error) {
+                console.log('err');
+            }
         }
 }
 
