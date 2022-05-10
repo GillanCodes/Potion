@@ -1,0 +1,22 @@
+.note-container {
+
+}
+
+.Page {
+    width: 50%;
+    margin: auto;
+}
+
+.Page .Block{
+
+    padding: 5px;
+
+}
+
+.Page .Block:focus{
+
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px $block-border solid;
+    outline: none;
+}
