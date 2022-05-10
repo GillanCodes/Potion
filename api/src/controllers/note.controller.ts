@@ -58,6 +58,36 @@ export const insertContent: RequestHandler = (req, res) => {
         }
 }
 
+export const titleEdit: RequestHandler = (req, res) => {
+
+    const { id: noteId } = req.params
+
+    if (!isValidObjectId) 
+        return res.status(200).send('invalid ID');
+
+    if (res.locals.user) {
+
+        const { title } = req.body;
+        
+        try {
+            noteModel.findByIdAndUpdate(noteId, {
+                $set: {
+                    title: title
+                }
+            }, {new: true}, (err, data) => {
+                if (err) throw Error(err.toString());
+                else res.status(201).send(data);
+            });
+        } catch (error) {
+            console.log('err');
+        }
+
+
+    } else {
+        //TODO
+    }
+}
+
 export const bannerEdit: RequestHandler = (req, res) => {
 
     if (res.locals.user) {
@@ -72,14 +102,14 @@ export const bannerEdit: RequestHandler = (req, res) => {
                 
             }
 
-            fs.writeFile('./cdn/notes/banner/' + fileName, req.file.buffer, (err: NodeJS.ErrnoException | null) => {
+            fs.writeFile('./public/cdn/notes/banner/' + fileName, req.file.buffer, (err: NodeJS.ErrnoException | null) => {
                 if (err) console.log(err);
             });
 
             try {
                 noteModel.findByIdAndUpdate(req.params.id, {
                     $set: {
-                        banner: `cdn/note/banner/${fileName}`
+                        banner: `cdn/notes/banner/${fileName}`
                     }
                 }, {new: true}, (err, data) => {
                     if (err) throw Error(err.toString());

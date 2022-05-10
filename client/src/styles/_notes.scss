@@ -2,6 +2,28 @@
 
 }
 
+.note-container .head {
+    height: 100%;
+    width: 100%;
+}
+
+.note-container .head .banner {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.note-container .title {
+    width: 50%;
+    margin: auto;
+}
+
+.note-container .title .title-text {
+    margin: 50px 0px;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
 .Page {
     width: 50%;
     margin: auto;
