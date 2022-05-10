@@ -30,6 +30,11 @@ app.use(cors(corsOptions));
 let { checkUser } = require('./middlewares/auth.middleware');
 app.use(checkUser)
 
+//JWT
+import { requireAuth } from "./middlewares/auth.middleware";
+app.get('/jwtid', requireAuth, (req ,res) => {
+  res.status(200).send(res.locals.user.id);
+})
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);

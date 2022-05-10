@@ -1,6 +1,4 @@
 import userModel from "../models/user.model";
-import { ObjectId } from "mongodb";
-
 let jwt = require('jsonwebtoken');
 
 module.exports.checkUser  = async (req: { cookies: { auth: any; }; }, res: { locals: { user: any; }; }, next: () => void) => {
@@ -25,32 +23,18 @@ module.exports.checkUser  = async (req: { cookies: { auth: any; }; }, res: { loc
     }
 }
 
-// module.exports.requireAuth = (req, res, next) => {
-//     const token = req.cookies.revtonbac_user; // On recup le token
-//     if (token) {
-//         jwt.verify(token, process.env.JWT_TOKEN, async (err, decodedToken) => { // on essaye de le decoder
-//             if (err) { //Si on y arrive pas
-//                 console.log(err);
-//             } else { // sinon
-//                 next();
-//             }
-//         });
-//     } else {
-//         return res.status(200)
-//     }
-// }
+export function requireAuth(req: { cookies: { auth: string; }; }, res: { status: (arg0: number) => any; }, next: () => void) {
+    const token = req.cookies.auth; 
+    if (token) {
+        jwt.verify(token, process.env.JWT_TOKEN, async (err: any, decodedToken: string) => {
+            if (err) {
+                console.log(err);
+            } else {
+                next();
+            }
+        });
+    } else {
+        return res.status(200)
+    }
+}
 
-// module.exports.requireAuthDashboard = (req, res, next) => {
-//     const token = req.cookies.revtonbac_dashboard; // On recup le token
-//     if (token) {
-//         jwt.verify(token, process.env.JWT_TOKEN, async (err, decodedToken) => { // on essaye de le decoder
-//             if (err) { //Si on y arrive pas
-//                 console.log(err);
-//             } else { // sinon
-//                 next();
-//             }
-//         });
-//     } else {
-//         return res.status(200)
-//     }
-// }
