@@ -35,7 +35,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App light">
       <UIdContext.Provider value={UId}>
         <Routes />
       </UIdContext.Provider>

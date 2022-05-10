@@ -1,6 +1,14 @@
 @import "./settings";
 
+@import "./theme/light.scss";
+
+@import './navbar';
+
 *{
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+._container {
+    margin-left: 250px;
 }

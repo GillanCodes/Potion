@@ -24,7 +24,7 @@ export default function Note() {
     
 
   return (
-    <div className='note-container'>
+    <div className='_container note-container'>
         {!state.isLoading && (
             <>
                 {noteData.map((note) => {

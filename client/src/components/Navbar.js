@@ -10,22 +10,27 @@ export default function Navbar() {
     
 
   return (
+    <>
     <nav className='nav-container'>
         <div className="nav-content">
             <NavLink className='item' extact="true" to="/">
                 Home
             </NavLink>
             {!isEmpty(userData) ? (
-                <p>{userData.username}</p>
+                <p className='item'>{userData.username}</p>
             ) : (
                 <NavLink className='item' extact="true" to="/auth">
                     Authentification
                 </NavLink>
             )}
+        </div>
+    </nav>
+    <nav className='nav-note'>
+        <div className="nav-note-content">
             {!isEmpty(notesData) && (
                 notesData.map((note) => {
                     return (
-                        <NavLink extact="true" to={`/note/${note._id}`}>
+                        <NavLink extact="true" to={`/note/${note._id}`} className='item'>
                             {note.icon ? note.icon : null} {note.title}
                         </NavLink>
                     )
@@ -33,5 +38,6 @@ export default function Navbar() {
             )}
         </div>
     </nav>
+    </>
   )
 }

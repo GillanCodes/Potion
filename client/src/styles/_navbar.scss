@@ -1,0 +1,48 @@
+nav.nav-container {
+    height: 50px;
+    width: 100vw;
+}
+
+nav.nav-container .nav-content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    position: fixed;
+}
+
+nav.nav-container .item {
+    justify-content: center;
+    padding: 15px;
+}
+
+nav.nav-note {
+
+    position: fixed;
+
+    height: 100vh;
+    width: 250px;
+    overflow: hidden;
+}
+
+
+nav.nav-note .nav-note-content {
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    
+
+}
+
+
+nav.nav-note .nav-note-content .item {
+
+    &:first-child {
+        margin-top: 25px;
+    }
+
+    text-align: center;
+    padding: 5px;
+
+}
