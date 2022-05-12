@@ -23,6 +23,11 @@ const allowedTags = [
     tag: "p",
     label: "Paragraph"
   },
+  {
+    id: "image",
+    tag: "<img alt='test' />",
+    label: "Image"
+  },
 ];
 
 export default class SelectMenu extends React.Component {
@@ -90,23 +95,25 @@ export default class SelectMenu extends React.Component {
         const positionAttributes = { top: y, left: x };
     
         return (
-          <div className="SelectMenu" style={positionAttributes}>
-            <div className="Items">
-              {this.state.items.map((item, key) => {
-                const selectedItem = this.state.selectedItem;
-                const isSelected = this.state.items.indexOf(item) === selectedItem;
-                return (
-                  <div
-                    className={isSelected ? "Selected" : null}
-                    key={key}
-                    role="button"
-                    tabIndex="0"
-                    onClick={() => this.props.onSelect(item.tag)}
-                  >
-                    {item.label}
-                  </div>
-                );
-              })}
+          <div className="MenuWrapper">
+            <div className="SelectMenu" style={positionAttributes}>
+              <div className="Items">
+                {this.state.items.map((item, key) => {
+                  const selectedItem = this.state.selectedItem;
+                  const isSelected = this.state.items.indexOf(item) === selectedItem;
+                  return (
+                    <div
+                      className={isSelected ? "Selected" : null}
+                      key={key}
+                      role="button"
+                      tabIndex="0"
+                      onClick={() => this.props.onSelect(item.tag)}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         );

@@ -18,13 +18,15 @@ const getCaretCoordinates = () => {
 };
 
 const setCaretToEnd = (element) => {
-  const range = document.createRange();
-  const selection = window.getSelection();
-  range.selectNodeContents(element);
-  range.collapse(false);
-  selection.removeAllRanges();
-  selection.addRange(range);
-  element.focus();
+  if (element) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    element.focus();
+  }
 };
 
 export default class EditableBlock extends React.Component {
@@ -57,6 +59,7 @@ export default class EditableBlock extends React.Component {
     componentDidUpdate(prevProps, prevState) {
       const htmlChanged = prevState.html !== this.state.html;
       const tagChanged = prevState.tag !== this.state.tag;
+      // const isImage = prevState === "img"
       if (htmlChanged || tagChanged) {
         this.props.updatePage({
           id: this.props.id,
@@ -95,13 +98,24 @@ export default class EditableBlock extends React.Component {
     }
 
     tagSelectionHandler(tag) {
-      this.setState({
-        tag: tag, 
-        html: this.state.htmlBackup
-      }, () => {
-        setCaretToEnd(this.contentEditable.current);
-        this.closeSelectMenuHandler()
-      })
+      console.log()
+      if (tag.startsWith('<img ')) {
+        this.setState({
+          html: tag
+        }, () => {
+          setCaretToEnd(this.contentEditable.current);
+          this.closeSelectMenuHandler()
+        })
+      } else {
+        this.setState({
+          tag: tag, 
+          html: this.state.htmlBackup
+        }, () => {
+          setCaretToEnd(this.contentEditable.current);
+          this.closeSelectMenuHandler()
+        })
+      }
+      
     }
 
     onKeyDownHandler(e) {
@@ -124,6 +138,14 @@ export default class EditableBlock extends React.Component {
           ref: this.contentEditable.current
         });
       }
+      console.log(e.key)
+      if (e.key === "Delete") {
+        e.preventDefault();
+        this.props.deleteBlock({
+          id: this.props.id,
+          ref: this.contentEditable.current
+        });
+      }
       this.setState({ previousKey: e.key });
     }
   
@@ -138,16 +160,15 @@ export default class EditableBlock extends React.Component {
                 close={this.closeSelectMenuHandler}
               />
             )}
-
-            <ContentEditable
-              className="Block"
-              innerRef={this.contentEditable}
-              html={this.state.html}
-              tagName={this.state.tag}
-              onChange={this.onChangeHandler}
-              onKeyDown={this.onKeyDownHandler}
-              onKeyUp={this.onKeyUpHandler}
-            />
+                  <ContentEditable
+                    className="Block"
+                    innerRef={this.contentEditable}
+                    html={this.state.html}
+                    tagName={this.state.tag}
+                    onChange={this.onChangeHandler}
+                    onKeyDown={this.onKeyDownHandler}
+                    onKeyUp={this.onKeyUpHandler}
+                />
           
           </>
       );
