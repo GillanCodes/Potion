@@ -4,11 +4,9 @@ import Register from './Register'
 
 export default function index() {
   return (
-    <div className='auth-module'>
-
+    <div className='_container auth-module '>
         <Login />
         <Register />
-
     </div>
   )
 }
