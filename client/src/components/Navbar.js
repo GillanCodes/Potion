@@ -1,13 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { newNote } from '../actions/note.action';
 import { isEmpty } from './Utils';
 
 export default function Navbar() {
 
     const userData = useSelector(state => state.userReducer);
     const notesData = useSelector(state => state.noteReducer);
+
+    const dispatch = useDispatch();
+
     
+    const newNoteHandle = () => {
+        dispatch(newNote());
+    }
 
   return (
     <>
@@ -36,6 +43,9 @@ export default function Navbar() {
                     )
                 })
             )}
+            <div className="item">
+                <button onClick={newNoteHandle}>Create a note !</button>
+            </div>
         </div>
     </nav>
     </>
